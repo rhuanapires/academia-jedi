@@ -8,8 +8,8 @@
         <thead>
           <tr>
             <th><button class="btn btn-primary"
-                      onclick="">
-                Foto do Estudante </button></th>
+                      (click)='alternarImagem()'>
+                {{exibirImagem ? 'Esconder' : 'Exibir'}} Foto do Estudante </button></th>
             <th>Nome</th>
             <th>Sexo</th>
             <th>Planeta</th>
@@ -17,7 +17,11 @@
         </thead>
         <tbody>
            <tr *ngFor='let estudante of estudantes'>
-            <td>{{estudante.url}}</td>
+            <td><img *ngIf='exibirImagem'
+                   [src]='estudante.url'
+                   [title]='estudante.nome'
+                   [style.width.px]='larguraImagem'
+                   [style.margin.px]='marginImagem'></td>
             <td>{{estudante.nome}}</td>
             <td>{{estudante.altura}}</td>
             <td>{{estudante.planeta}}</td>

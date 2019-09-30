@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
   selector: "jedi-estudantes",
   templateUrl: "./lista-estudantes.component.html"
 })
-export class listaEstudantesComponent {
+export class ListaEstudantesComponent {
   estudantes: any[] = [
     {
       id: 1,
@@ -235,4 +235,12 @@ export class listaEstudantesComponent {
       url: "./assets/imagens/palpatine.jpg"
     }
   ];
+  larguraImagem: number = 50;
+  margemImagem: number = 2;
+  exibirImagem: boolean = false;
+
+  // Método para exibir ou esconder a imagem ao clicar no botao
+  alternarImagem() {
+    this.exibirImagem = !this.exibirImagem;
+  }
 }
