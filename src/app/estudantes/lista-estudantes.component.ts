@@ -238,6 +238,7 @@ export class ListaEstudantesComponent {
   larguraImagem: number = 50;
   margemImagem: number = 2;
   exibirImagem: boolean = false;
+  filtroLista: string = "";
 
   // Método para exibir ou esconder a imagem ao clicar no botao
   alternarImagem() {
