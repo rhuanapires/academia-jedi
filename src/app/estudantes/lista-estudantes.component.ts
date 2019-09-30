@@ -238,10 +238,10 @@ export class ListaEstudantesComponent {
   larguraImagem: number = 50;
   margemImagem: number = 2;
   exibirImagem: boolean = false;
-  filtroLista: string = "";
+  filtroLista: string = ""; // criei uma string vazia, mas poderia possuir qualquer valor que seria exibido no input
 
-  // Método para exibir ou esconder a imagem ao clicar no botao
+  // Método para exibir ou esconder a imagem ao clicar no botão
   alternarImagem() {
-    this.exibirImagem = !this.exibirImagem;
+    this.exibirImagem = !this.exibirImagem; // inverte valor booleano, exibindo ou escondendo a lista de imagens
   }
 }
