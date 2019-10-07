@@ -1,6 +1,7 @@
 <div class="card">
   <div class="card-header">
-    Lista de Estudantes</div>
+    {{tituloPagina}}
+  </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-2">Filtrar por:</div>
@@ -14,28 +15,33 @@
         <h4>Filtrado por: {{filtroLista}}</h4>
       </div>
     </div>
-    <div class="table-responsive"
-         *ngIf='estudantes && estudantes.length'>
-      <table class="table">
+    <div class="table-responsive">
+      <table class="table"
+             *ngIf='estudantes && estudantes.length'>
         <thead>
           <tr>
-            <th><button class="btn btn-primary"
+            <th>
+              <button class="btn btn-primary"
                       (click)='alternarImagem()'>
-                {{exibirImagem ? 'Esconder' : 'Exibir'}} Foto do Estudante </button></th>
+                {{ exibirImagem ? 'Esconder' : 'Exibir' }} Foto
+              </button>
+            </th>
             <th>Nome</th>
             <th>Sexo</th>
             <th>Planeta</th>
           </tr>
         </thead>
         <tbody>
-           <tr *ngFor='let estudante of estudantes'>
-            <td><img *ngIf='exibirImagem'
+          <tr *ngFor='let estudante of estudantes'>
+            <td>
+              <img *ngIf='exibirImagem'
                    [src]='estudante.url'
                    [title]='estudante.nome'
                    [style.width.px]='larguraImagem'
-                   [style.margin.px]='marginImagem'></td>
+                   [style.margin.px]='margemImagem'>
+            </td>
             <td>{{estudante.nome}}</td>
-            <td>{{estudante.altura}}</td>
+            <td>{{estudante.sexo | SexoPipe: "-"}}</td>
             <td>{{estudante.planeta}}</td>
           </tr>
         </tbody>

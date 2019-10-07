@@ -1,15 +1,23 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import {IEstudante} from "./estudantes"
 
 @Component({
   selector: "jedi-estudantes",
   templateUrl: "./lista-estudantes.component.html"
 })
-export class ListaEstudantesComponent {
-  estudantes: any[] = [
+export class ListaEstudantesComponent implements OnInit {
+  tituloPagina: string = "Lista de Estudantes";
+  larguraImagem: number = 50;
+  margemImagem: number = 2;
+  exibirImagem: boolean = false;
+  filtroLista: string = "luke";
+  alturaMaxima: number;
+  alturasEstudantes: number[];
+  estudantes: IEstudante[] = [
     {
       id: 1,
       nome: "Luke Skywalker",
-      altura: "172",
+      altura: 172,
       peso: "77",
       corCabelo: "louro",
       corOlhos: "blue",
@@ -21,7 +29,7 @@ export class ListaEstudantesComponent {
     {
       id: 2,
       nome: "C-3PO",
-      altura: "167",
+      altura: 167,
       peso: "75",
       corCabelo: "n/a",
       corOlhos: "amarelo",
@@ -33,7 +41,7 @@ export class ListaEstudantesComponent {
     {
       id: 3,
       nome: "R2-D2",
-      altura: "96",
+      altura: 96,
       peso: "32",
       corCabelo: "n/a",
       corOlhos: "vermelho",
@@ -45,7 +53,7 @@ export class ListaEstudantesComponent {
     {
       id: 4,
       nome: "Darth Vader",
-      altura: "202",
+      altura: 202,
       peso: "136",
       corCabelo: "nenhuma",
       corOlhos: "amarelo",
@@ -57,7 +65,7 @@ export class ListaEstudantesComponent {
     {
       id: 5,
       nome: "Leia Organa",
-      altura: "150",
+      altura: 150,
       peso: "49",
       corCabelo: "castanho",
       corOlhos: "castanho",
@@ -69,7 +77,7 @@ export class ListaEstudantesComponent {
     {
       id: 6,
       nome: "Owen Lars",
-      altura: "178",
+      altura: 178,
       peso: "120",
       corCabelo: "castanho, cinza",
       corOlhos: "azul",
@@ -81,7 +89,7 @@ export class ListaEstudantesComponent {
     {
       id: 7,
       nome: "Beru Whitesun Lars",
-      altura: "165",
+      altura: 165,
       peso: "75",
       corCabelo: "castanho",
       corOlhos: "azul",
@@ -93,7 +101,7 @@ export class ListaEstudantesComponent {
     {
       id: 8,
       nome: "R5-D4",
-      altura: "97",
+      altura: 97,
       peso: "32",
       corCabelo: "n/a",
       corOlhos: "vermelho",
@@ -105,7 +113,7 @@ export class ListaEstudantesComponent {
     {
       id: 9,
       nome: "Biggs Darklighter",
-      altura: "183",
+      altura: 183,
       peso: "84",
       corCabelo: "preto",
       corOlhos: "castanho",
@@ -117,7 +125,7 @@ export class ListaEstudantesComponent {
     {
       id: 10,
       nome: "Obi-Wan Kenobi",
-      altura: "182",
+      altura: 182,
       peso: "77",
       corCabelo: "branco",
       corOlhos: "azul-cinza",
@@ -129,7 +137,7 @@ export class ListaEstudantesComponent {
     {
       id: 11,
       nome: "Anakin Skywalker",
-      altura: "188",
+      altura: 188,
       peso: "84",
       corCabelo: "louro",
       corOlhos: "azul",
@@ -141,7 +149,7 @@ export class ListaEstudantesComponent {
     {
       id: 12,
       nome: "Wilhuff Tarkin",
-      altura: "180",
+      altura: 180,
       peso: "desconhecido",
       corCabelo: "cinza",
       corOlhos: "azul",
@@ -153,7 +161,7 @@ export class ListaEstudantesComponent {
     {
       id: 13,
       nome: "Chewbacca",
-      altura: "228",
+      altura: 228,
       peso: "112",
       corCabelo: "castanho",
       corOlhos: "azul",
@@ -165,7 +173,7 @@ export class ListaEstudantesComponent {
     {
       id: 14,
       nome: "Han Solo",
-      altura: "180",
+      altura: 180,
       peso: "80",
       corCabelo: "castanho",
       corOlhos: "castanho",
@@ -177,7 +185,7 @@ export class ListaEstudantesComponent {
     {
       id: 15,
       nome: "Greedo",
-      altura: "173",
+      altura: 173,
       peso: "74",
       corCabelo: "n/a",
       corOlhos: "preto",
@@ -189,7 +197,7 @@ export class ListaEstudantesComponent {
     {
       id: 16,
       nome: "Jabba Desilijic Tiure",
-      altura: "175",
+      altura: 175,
       peso: "1,358",
       corCabelo: "n/a",
       corOlhos: "laranja",
@@ -201,7 +209,7 @@ export class ListaEstudantesComponent {
     {
       id: 17,
       nome: "Wedge Antilles",
-      altura: "170",
+      altura: 170,
       peso: "77",
       corCabelo: "castanho",
       corOlhos: "hazel",
@@ -213,7 +221,7 @@ export class ListaEstudantesComponent {
     {
       id: 18,
       nome: "Yoda",
-      altura: "66",
+      altura: 66,
       peso: "17",
       corCabelo: "branco",
       corOlhos: "castanho",
@@ -225,7 +233,7 @@ export class ListaEstudantesComponent {
     {
       id: 19,
       nome: "Palpatine",
-      altura: "170",
+      altura: 170,
       peso: "75",
       corCabelo: "cinza",
       corOlhos: "amarelo",
@@ -235,13 +243,15 @@ export class ListaEstudantesComponent {
       url: "./assets/imagens/palpatine.jpg"
     }
   ];
-  larguraImagem: number = 50;
-  margemImagem: number = 2;
-  exibirImagem: boolean = false;
-  filtroLista: string = ""; // criei uma string vazia, mas poderia possuir qualquer valor que seria exibido no input
 
-  // Método para exibir ou esconder a imagem ao clicar no botão
-  alternarImagem() {
-    this.exibirImagem = !this.exibirImagem; // inverte valor booleano, exibindo ou escondendo a lista de imagens
+  ngOnInit(): void {
+    // Cria um array contendo somente as alturas dos estudantes (number[])
+    this.alturasEstudantes = this.estudantes.map(e => e.altura);
+    // Obtém a maior altura do array criado na instrução anterior
+    this.alturaMaxima = Math.max(...this.alturasEstudantes);
+  }
+
+  alternarImagem(): void {
+    this.exibirImagem = !this.exibirImagem;
   }
 }
