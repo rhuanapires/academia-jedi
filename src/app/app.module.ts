@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { ListaEstudantesComponent } from "./estudantes/lista-estudantes.component";
 import { SexoPipe } from "./compartilhado/sexo.pipe";
 import { AlturaComponent } from "./compartilhado/altura.component";
+import { EstudanteService } from "./estudantes/estudantes.service";
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AlturaComponent } from "./compartilhado/altura.component";
     SexoPipe,
     AlturaComponent
   ],
+  providers: [EstudanteService],
   imports: [BrowserModule, FormsModule],
   bootstrap: [AppComponent]
 })
