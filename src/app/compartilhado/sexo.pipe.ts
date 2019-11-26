@@ -1,10 +1,15 @@
-import { PipeTransform, Pipe } from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: "SexoPipe"
+    name: 'sexo'
 })
-export class SexoPipe implements PipeTransform {
-  transform(valor: string): string {
-    return valor === "masculino" ? "M" : valor === "feminino" ? "F" : valor;
-  }
+export class SexoPipe implements PipeTransform{
+    transform (valor: string): string {
+      if (valor === "masculino")
+        return "M";
+      else if (valor === "feminino")
+        return "F";
+      else return valor;
+    }
+
 }

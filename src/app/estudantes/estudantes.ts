@@ -8,5 +8,5 @@ export interface IEstudante {
   anoNascimento: string;
   sexo: string;
   planeta: string;
-  url: string;
+  url: string
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
 import { IEstudante } from "./estudantes";
-import { EstudanteService } from "./estudantes.service";
+import { Component, OnInit } from "@angular/core";
+import { EstudantesService } from "./estudantes.service";
 
 @Component({
   selector: "jedi-estudantes",
@@ -11,32 +11,40 @@ export class ListaEstudantesComponent implements OnInit {
   larguraImagem: number = 50;
   margemImagem: number = 2;
   exibirImagem: boolean = false;
-  _filtroLista: string;
+  estudantesFiltrados: IEstudante[];
+  _filtroLista: string = "luke";
   get filtroLista(): string {
     return this._filtroLista;
   }
   set filtroLista(valor: string) {
     this._filtroLista = valor;
-    this.listaEstudantes = this.filtroLista
+    this.estudantesFiltrados = this.filtroLista
       ? this.executarFiltro(this.filtroLista)
       : this.estudantes;
   }
   alturaMaxima: number;
   alturasEstudantes: number[];
-  listaEstudantes: IEstudante[];
   estudantes: IEstudante[] = [];
+  mensagemErro: string;
+
+  constructor(private estudantesService: EstudantesService) {}
 
   ngOnInit(): void {
-    // variavel estudante recebendo a lista de estudantes presente no service
-    this.estudantes = this.estudanteService.getEstudante();
-    // retirado do construtor e colocado no nhOnInit
-    this.listaEstudantes = this.estudantes;
-    // Cria um array contendo somente as alturas dos estudantes (number[])
-    this.alturasEstudantes = this.estudantes.map(p => p.altura);
-    // Obtém a maior altura do array criado na instrução anterior
-    this.alturaMaxima = Math.max(...this.alturasEstudantes);
-    // filtro de lista setado inicialmente como Luke
-    this.filtroLista = "Luke";
+    // Exibe a lista completa
+    this.getEstudantes();
+    // Configura o valor inicial do filtro
+    this.filtroLista = "luke";
+  }
+  getEstudantes(): void {
+    this.estudantesService.getEstudantes().subscribe(
+      estudantes => {
+        this.estudantes = estudantes;
+        this.estudantesFiltrados = this.estudantes;
+        this.alturasEstudantes = this.estudantes.map(e => e.altura);
+        this.alturaMaxima = Math.max(...this.alturasEstudantes);
+      },
+      error => (this.mensagemErro = <any>error)
+    );
   }
 
   alternarImagem(): void {
@@ -46,10 +54,8 @@ export class ListaEstudantesComponent implements OnInit {
   executarFiltro(filtrarPor: string): IEstudante[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.estudantes.filter(
-      (produto: IEstudante) =>
-        produto.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      (estudante: IEstudante) =>
+        estudante.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
-  // Construtor com o service injetado
-  constructor(private estudanteService: EstudanteService) {}
 }
